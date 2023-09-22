@@ -28,26 +28,32 @@ To install this module, you can download the source code and import it into your
 
 ### Initialization
 Initialize the EasyGPT class by providing the API key and the GPT model name you intend to use. You can also optionally set a system message and temperature for the model.
+
 `from EasyGPT import EasyGPT easy_gpt = EasyGPT(api_key="your_api_key_here", model_name="gpt-4")`
 
 ### Setting Context
 If you want to set a context for the conversation, you can do so like this:
+
 `easy_gpt.create_context("Hello, how are you?")`
 
 ### Asking Questions
 For making queries, you can use `ask` for one-off questions or `ask_with_context` for a series of questions with a set context.
+
 `response, input_price, output_price = easy_gpt.ask("What is the weather?")`
 
 ### Processing Responses
 Responses can be processed to return the assistant's message, input price, and output price.
+
 `message, input_price, output_price = easy_gpt.process_response(response)`
 
 ### Token Calculations
 You can calculate the number of tokens required for any message string.
+
 `num_tokens = easy_gpt.tokens_in_string("Your message here")`
 
 ## Constants and Pricing
 The module contains constants for default stops and system messages, as well as pricing information for different GPT models.
+
 ## Supported Models
 
 The module supports a variety of GPT models, including:
