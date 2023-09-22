@@ -24,6 +24,15 @@ To install this module, you can download the source code and import it into your
 
 `pip install openai tiktoken`
 
+To install module from GitHub you can use either:
+
+`pip install git+https://github.com/chubajs/easygpt.git`
+
+or 
+
+`pip install git+ssh://git@github.com:chubajs/easygpt.git`
+
+
 ## Usage
 
 ### Initialization
