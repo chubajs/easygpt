@@ -36,9 +36,17 @@ or
 ## Usage
 
 ### Initialization
-Initialize the EasyGPT class by providing the API key and the GPT model name you intend to use. You can also optionally set a system message and temperature for the model.
+Initialize the EasyGPT class by providing the openai instance and the GPT model name you intend to use. You can also optionally set a system message and temperature for the model.
 
-`from EasyGPT import EasyGPT easy_gpt = EasyGPT(api_key="your_api_key_here", model_name="gpt-4")`
+```
+import os
+import openai
+from easygpt import EasyGPT
+from EasyGPT import EasyGPT 
+
+openai.api_key = os.environ.get('OPENAI_API_KEY')
+easy_gpt = EasyGPT(openai, model_name="gpt-4")
+```
 
 ### Setting Context
 If you want to set a context for the conversation, you can do so like this:

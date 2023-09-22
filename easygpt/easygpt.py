@@ -8,7 +8,7 @@ License: MIT
 """
 
 import openai
-from gptmodels import GPTModel
+from .gptmodels import GPTModel
 import tiktoken
 import logging
 
@@ -16,9 +16,9 @@ import logging
 
 
 class EasyGPT:
-    def __init__(self, api_key, model_name, system_msg="", temperature=-1):
+    def __init__(self, openai, model_name, system_msg="", temperature=-1):
         """Initialize EasyGPT class with given model_name and optional system_msg and temperature."""
-        self.openai.api_key = api_key
+        self.openai = openai
         self.model = GPTModel(model_name)
         self.system_msg = system_msg
         self.context = []

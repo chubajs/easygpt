@@ -67,7 +67,7 @@ class GPTModel:
 
     def __init__(self, model="gpt-3.5-turbo"):
         """Constructor for GPTModel class."""
-        print(f"Initializing GPTModel with model {model}")
+        # print(f"Initializing GPTModel with model {model}")
         if model in SUPPORTED_MODELS:
             self._initialize_model_properties(model)
         else:
