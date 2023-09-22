@@ -35,7 +35,7 @@ class EasyGPT:
             logging.info(f"Sending request to {self.model.get_name()} "
                          f"temp: {self.model.get_temperature()} "
                          f"tokens: {gpt_tokens} max tokens: {max_tokens}")
-            
+
             return openai.ChatCompletion.create(
                 model=self.model.get_name(),
                 max_tokens=max_tokens,

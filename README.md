@@ -42,7 +42,6 @@ Initialize the EasyGPT class by providing the openai instance and the GPT model 
 import os
 import openai
 from easygpt import EasyGPT
-from EasyGPT import EasyGPT 
 
 openai.api_key = os.environ.get('OPENAI_API_KEY')
 easy_gpt = EasyGPT(openai, model_name="gpt-4")
