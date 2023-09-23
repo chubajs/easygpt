@@ -20,7 +20,10 @@ class EasyGPT:
         """Initialize EasyGPT class with given model_name and optional system_msg and temperature."""
         self.openai = openai
         self.model = GPTModel(model_name)
-        self.system_msg = system_msg
+        if system_msg == "":
+            self.system_msg = self.model.get_system_message()
+        else:
+            self.system_msg = system_msg
         self.context = []
         if temperature != -1:
             self.model.set_temperature(temperature)
@@ -65,7 +68,8 @@ class EasyGPT:
         """Main method for querying GPT-3 without a pre-set context."""
         self.create_context(question)
         gpt_tokens = self.num_tokens_from_messages(self.context, model=self.model.get_name())
-        max_tokens = self.determine_max_tokens(max_tokens, gpt_tokens)
+        if max_tokens == 0:
+            max_tokens = self.determine_max_tokens(max_tokens, gpt_tokens)
         response = self._compose_request(max_tokens, gpt_tokens)
         return self.process_response(response)
 
@@ -95,6 +99,10 @@ class EasyGPT:
         """Creates a new context or updates the existing context."""
         self.context = [{"role": "system", "content": self.system_msg}] if self.system_msg else []
         self.context.append({"role": "user", "content": message})
+
+    def set_system_message(self, message):
+        """Sets the system message."""
+        self.system_msg = message
 
     def num_tokens_from_messages(self, messages, model="gpt-3"):
         """Calculates the number of tokens required for the message list."""
