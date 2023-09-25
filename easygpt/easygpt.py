@@ -6,11 +6,12 @@ This module defines the EasyGPT class for easier interaction with the OpenAI API
 Author: Sergey Bulaev
 License: MIT
 """
-
+from .version import version as __version__
 import openai
 from .gptmodels import GPTModel
 import tiktoken
 import logging
+import time
 
 # Set the OpenAI API key from environment variables
 
@@ -32,24 +33,36 @@ class EasyGPT:
         """Clears the context history."""
         self.context = []
 
-    def _compose_request(self, max_tokens, gpt_tokens):
+    def _compose_request(self, max_tokens, gpt_tokens, max_retries=1):
         """Internal utility to compose request for OpenAI ChatCompletion."""
-        try:
-            logging.info(f"Sending request to {self.model.get_name()} "
-                         f"temp: {self.model.get_temperature()} "
-                         f"tokens: {gpt_tokens} max tokens: {max_tokens}")
+        retries = 0      # Initial retry counter
 
-            return openai.ChatCompletion.create(
-                model=self.model.get_name(),
-                max_tokens=max_tokens,
-                n=1,
-                stop=self.model.get_stop(),
-                temperature=self.model.get_temperature(),
-                messages=self.context,
-            )
-        except openai.error.InvalidRequestError as e:
-            logging.error(f"Request failed: {e}")
-            return None
+        while retries <= max_retries:
+            try:
+                logging.info(f"Sending request to {self.model.get_name()} "
+                             f"temp: {self.model.get_temperature()} "
+                             f"tokens: {gpt_tokens} max tokens: {max_tokens}")
+
+                return openai.ChatCompletion.create(
+                    model=self.model.get_name(),
+                    max_tokens=max_tokens,
+                    n=1,
+                    stop=self.model.get_stop(),
+                    temperature=self.model.get_temperature(),
+                    messages=self.context,
+                )
+            except openai.error.Timeout as e:
+                logging.warning(f"Request timed out: {e}")
+                retries += 1  # Increment the retry counter
+                if retries <= max_retries:
+                    logging.info("Retrying...")
+                    time.sleep(2)  # Wait for 2 seconds before retrying
+            except openai.error.InvalidRequestError as e:
+                logging.error(f"Request failed: {e}")
+                return None
+
+        logging.error("Max retries reached. Request failed.")
+        return None
 
     def process_response(self, response):
         """Process the OpenAI API response."""
