@@ -3,10 +3,11 @@ import random
 import os
 
 import openai
-from easygpt import EasyGPT  
+from easygpt import EasyGPT, __version__ as easygpt_version
 
 # Initialize logging
 logging.basicConfig(level=logging.INFO)
+print("EasyGPT version: ", easygpt_version)
 
 # Initialize API key from environment and other variables
 openai.api_key = os.environ.get('OPENAI_API_KEY')
