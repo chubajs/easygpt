@@ -20,6 +20,9 @@ GPT4_OUTPUT_PRICE = 0.00006
 GPT4_32_INPUT_PRICE = 0.00006
 GPT4_32_OUTPUT_PRICE = 0.00012
 
+GPT4_PREVIEW_INPUT_PRICE = 0.00001
+GPT4_PREVIEW_OUTPUT_PRICE = 0.00003
+
 GPT3_INPUT_PRICE = 0.0000015
 GPT3_OUTPUT_PRICE = 0.000002
 GPT3_16_INPUT_PRICE = 0.000003
@@ -33,6 +36,13 @@ SUPPORTED_MODELS = {
         "max_tokens": 8000,
         "temperature": 0.7,
         "max_window_size": 7000
+    },
+    "gpt-4-1106-preview": {
+        "input_price": GPT4_PREVIEW_INPUT_PRICE,
+        "output_price": GPT4_PREVIEW_OUTPUT_PRICE,
+        "max_tokens": 20000,
+        "temperature": 0.7,
+        "max_window_size": 18000
     },
     "gpt-4-32": {
         "input_price": GPT4_32_INPUT_PRICE,

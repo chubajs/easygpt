@@ -84,6 +84,8 @@ class EasyGPT:
         if max_tokens == 0:
             max_tokens = self.determine_max_tokens(max_tokens, gpt_tokens)
         response = self._compose_request(max_tokens, gpt_tokens)
+        # handle errors
+
         return self.process_response(response)
 
     def ask_with_context(self, context, max_tokens=0):
@@ -133,6 +135,9 @@ class EasyGPT:
         elif model == "gpt-3.5-turbo-16k":
             # print("Warning: gpt-3.5-turbo-16k may change over time. Returning num tokens assuming gpt-3.5-turbo-16k-0301.")
             return self.num_tokens_from_messages(messages, model="gpt-3.5-turbo-0613")
+        elif model == "gpt-4-1106-preview":
+            # print("Warning: gpt-4-1106-preview may change over time. Returning num tokens assuming gpt-4-0613.")
+            return self.num_tokens_from_messages(messages, model="gpt-4-0613")
         elif model == "gpt-3.5-turbo-0613":
             tokens_per_message = 4  # every message follows <|start|>{role/name}\n{content}<|end|>\n
             tokens_per_name = -1  # if there's a name, the role is omitted
