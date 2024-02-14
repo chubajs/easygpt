@@ -23,47 +23,52 @@ GPT4_32_OUTPUT_PRICE = 0.00012
 GPT4_PREVIEW_INPUT_PRICE = 0.00001
 GPT4_PREVIEW_OUTPUT_PRICE = 0.00003
 
-GPT3_INPUT_PRICE = 0.0000015
-GPT3_OUTPUT_PRICE = 0.000002
+GPT3_INPUT_PRICE = 0.0000005
+GPT3_OUTPUT_PRICE = 0.0000015
 GPT3_16_INPUT_PRICE = 0.000003
 GPT3_16_OUTPUT_PRICE = 0.000004
 
 # Supported Models
 SUPPORTED_MODELS = {
     "gpt-4": {
+        "real_name": "gpt-4",
         "input_price": GPT4_INPUT_PRICE,
         "output_price": GPT4_OUTPUT_PRICE,
-        "max_tokens": 8000,
+        "max_tokens": 7000,
         "temperature": 0.7,
-        "max_window_size": 7000
+        "max_window_size": 8000
     },
-    "gpt-4-1106-preview": {
+    "gpt-4-turbo-preview": {
+        "real_name": "gpt-4-turbo-preview",
         "input_price": GPT4_PREVIEW_INPUT_PRICE,
         "output_price": GPT4_PREVIEW_OUTPUT_PRICE,
-        "max_tokens": 20000,
+        "max_tokens": 4000,
         "temperature": 0.7,
         "max_window_size": 18000
     },
-    "gpt-4-32": {
-        "input_price": GPT4_32_INPUT_PRICE,
-        "output_price": GPT4_32_OUTPUT_PRICE,
-        "max_tokens": 32000,
-        "temperature": 0.7,
-        "max_window_size": 30000
-    },
+#    "gpt-4-32k": {
+#        "real_name": "gpt-4-32k",
+#        "input_price": GPT4_32_INPUT_PRICE,
+#        "output_price": GPT4_32_OUTPUT_PRICE,
+#        "max_tokens": 30000,
+#        "temperature": 0.7,
+#        "max_window_size": 32000
+#    },
     "gpt-3.5-turbo": {
+        "real_name": "gpt-3.5-turbo",  # "gpt-3.5-turbo-16k
         "input_price": GPT3_INPUT_PRICE,
         "output_price": GPT3_OUTPUT_PRICE,
-        "max_tokens": 4000,
+        "max_tokens": 3000,
         "temperature": 0.7,
-        "max_window_size": 3000
+        "max_window_size": 4000
     },
     "gpt-3.5-turbo-16k": {
+        "real_name": "gpt-3.5-turbo-0125",
         "input_price": GPT3_16_INPUT_PRICE,
         "output_price": GPT3_16_OUTPUT_PRICE,
-        "max_tokens": 16000,
+        "max_tokens": 4000,
         "temperature": 0.7,
-        "max_window_size": 14000
+        "max_window_size": 16000
     }
 }
 
@@ -93,11 +98,17 @@ class GPTModel:
         self.system_message = GPT_DEFAULT_SYSTEM_MESSAGE
         self.input_price = SUPPORTED_MODELS[model]["input_price"]
         self.output_price = SUPPORTED_MODELS[model]["output_price"]
+        self.real_name = SUPPORTED_MODELS[model]["real_name"]
 
     # Getter Methods
     def get_name(self):
         """Returns the model name."""
         return self.name
+
+
+    def get_real_name(self):
+        """Returns the real model name."""
+        return self.real_name
 
     def get_max_window_size(self):
         """Returns the maximum window size."""
@@ -159,3 +170,7 @@ class GPTModel:
     def set_system_message(self, system_message):
         """Sets the system message."""
         self.system_message = system_message
+
+    def availabe_models(self):
+        """Returns the list of available models."""
+        return list(SUPPORTED_MODELS.keys())

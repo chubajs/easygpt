@@ -39,12 +39,12 @@ class EasyGPT:
 
         while retries <= max_retries:
             try:
-                logging.info(f"Sending request to {self.model.get_name()} "
+                logging.info(f"Sending request to {self.model.get_real_name()} "
                              f"temp: {self.model.get_temperature()} "
                              f"tokens: {gpt_tokens} max tokens: {max_tokens}")
 
                 return openai.ChatCompletion.create(
-                    model=self.model.get_name(),
+                    model=self.model.get_real_name(),
                     max_tokens=max_tokens,
                     n=1,
                     stop=self.model.get_stop(),
@@ -132,11 +132,17 @@ class EasyGPT:
         elif model == "gpt-4":
             # print("Warning: gpt-4 may change over time. Returning num tokens assuming gpt-4-0314.")
             return self.num_tokens_from_messages(messages, model="gpt-4-0613")
+        elif model == "gpt-4-32k":
+            # print("Warning: gpt-4-32k may change over time. Returning num tokens assuming gpt-4-0613.")
+            return self.num_tokens_from_messages(messages, model="gpt-4-0613")
         elif model == "gpt-3.5-turbo-16k":
             # print("Warning: gpt-3.5-turbo-16k may change over time. Returning num tokens assuming gpt-3.5-turbo-16k-0301.")
             return self.num_tokens_from_messages(messages, model="gpt-3.5-turbo-0613")
         elif model == "gpt-4-1106-preview":
             # print("Warning: gpt-4-1106-preview may change over time. Returning num tokens assuming gpt-4-0613.")
+            return self.num_tokens_from_messages(messages, model="gpt-4-0613")
+        elif model == "gpt-4-turbo-preview":
+            # print("Warning: gpt-4-turbo-preview may change over time. Returning num tokens assuming gpt-4-0613.")
             return self.num_tokens_from_messages(messages, model="gpt-4-0613")
         elif model == "gpt-3.5-turbo-0613":
             tokens_per_message = 4  # every message follows <|start|>{role/name}\n{content}<|end|>\n
