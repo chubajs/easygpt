@@ -23,6 +23,9 @@ GPT4_32_OUTPUT_PRICE = 0.00012
 GPT4_PREVIEW_INPUT_PRICE = 0.00001
 GPT4_PREVIEW_OUTPUT_PRICE = 0.00003
 
+GPT4OAUG_INPUT_PRICE = 0.0000025
+GPT4OAUG_OUTPUT_PRICE = 0.00001
+
 GPT3_INPUT_PRICE = 0.0000005
 GPT3_OUTPUT_PRICE = 0.0000015
 GPT3_16_INPUT_PRICE = 0.000003
@@ -34,6 +37,14 @@ SUPPORTED_MODELS = {
         "real_name": "gpt-4",
         "input_price": GPT4_INPUT_PRICE,
         "output_price": GPT4_OUTPUT_PRICE,
+        "max_tokens": 7000,
+        "temperature": 0.7,
+        "max_window_size": 8000
+    },
+    "gpt-4o-aug": {
+        "real_name": "gpt-4o-2024-08-06",
+        "input_price": GPT4OAUG_INPUT_PRICE,
+        "output_price": GPT4OAUG_OUTPUT_PRICE,
         "max_tokens": 7000,
         "temperature": 0.7,
         "max_window_size": 8000
