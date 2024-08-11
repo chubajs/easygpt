@@ -150,7 +150,7 @@ class EasyGPT:
         elif model == "gpt-4-0613":
             tokens_per_message = 3
             tokens_per_name = 1
-        elif model == "gpt-4o-2024-08-06":
+        elif model == "gpt-4o-2024-08-06" or model == "gpt-4o-aug":
             tokens_per_message = 3
             tokens_per_name = 1
         else:
